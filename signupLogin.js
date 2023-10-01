@@ -38,6 +38,8 @@ signupForm.addEventListener("submit", async (e) => {
     console.log("signup completed", response.status);
     signupForm.reset();
 
+    window.location.href='expenses/expenseForm.html'
+    
     if (response.status === 201) {
       console.log("congrats you signed up successfully!");
     } else if (response.status === 500) {
@@ -72,6 +74,8 @@ loginForm.addEventListener("submit", async (e) => {
     );
     loginForm.reset();
 
+      window.location.href='expenses/expenseForm.html'
+
     if (response.status === 202) {
       console.log("Login successful");
       alert("Login successful!");
@@ -81,7 +85,7 @@ loginForm.addEventListener("submit", async (e) => {
       alert("User not found");
     }
   } catch (err) {
-    console.error(err.response.data.error);
+    console.error(err);
     alert(err.response.data.error);
   }
 });
