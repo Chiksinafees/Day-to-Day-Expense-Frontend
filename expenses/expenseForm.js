@@ -1,7 +1,57 @@
+const showForm = document.getElementById("showForm");
+const expenseForm = document.querySelector(".expense-form");
 const inputExp = document.querySelector("#expense");
 const inputDes = document.querySelector("#description");
 const inputCat = document.querySelector("#category");
-const expenseForm = document.querySelector("#expenseForm");
+
+showForm.addEventListener("click", () => {
+  expenseForm.classList.toggle("active");
+});
+
+let currentDate = new Date();
+let currentMonthIndex = currentDate.getMonth();
+let currentYear = currentDate.getFullYear();
+
+function updateMonth() {
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  document.getElementById("currentMonth").textContent =
+    months[currentMonthIndex] + " " + currentYear;
+}
+
+function nextMonth() {
+  currentMonthIndex = (currentMonthIndex + 1) % 12;
+  if (currentMonthIndex === 0) {
+    currentYear++;
+  }
+  updateMonth();
+}
+
+function previousMonth() {
+  if (currentMonthIndex === 0) {
+    currentYear--;
+    currentMonthIndex = 11;
+  } else {
+    currentMonthIndex--;
+  }
+  updateMonth();
+}
+// Initially current date show krne k lie
+updateMonth();
+
+//-------------------------------------------------------------
 
 expenseForm.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -28,12 +78,13 @@ window.addEventListener("DOMContentLoaded", () => {
   axios
     .get("http://localhost:3000/expense-table/all")
     .then((response) => {
+      console.log(response.data.allExpense);
       for (let i = 0; i < response.data.allExpense.length; i++) {
         showUserOnScreen(response.data.allExpense[i]);
       }
     })
     .catch((err) => {
-      console.error("Error:", err.response); // Log detailed error information
+      console.error("Error:", err.response);
     });
 });
 
@@ -48,8 +99,8 @@ function showUserOnScreen(user) {
   <div class="description-info">${user.description}</div>
   <div class="category-info">${user.category}</div>
   <div class="action-info">
-    <button onclick=deleteExpense('${user.id}')>Delete</button>
-    <button onclick=EditExpense('${user.id}','${user.expense}','${user.description}','${user.category}')>Edit</button>
+    <button onclick=deleteExpense('${user.id}')>🗑</button>
+    <button onclick=EditExpense('${user.id}','${user.expense}','${user.description}','${user.category}')>✐</button>
   </div>
 </li>`;
   parentNode.innerHTML += childHTML;

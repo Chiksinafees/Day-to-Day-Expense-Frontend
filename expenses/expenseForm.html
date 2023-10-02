@@ -2,40 +2,61 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>tracking expense</title>
-    <link rel="stylesheet" href="expenseForm.css" />
+    <title>Expense form</title>
+    <link rel="stylesheet" type="text/css" href="expenseForm.css" />
+    <style></style>
   </head>
   <body>
-    <div class="container">
-      <h1>EXPENSE TRACKER APP</h1>
-      <form id="expenseForm">
-        <input
-          type="number"
-          id="expense"
-          name="expense"
-          placeholder="Expense-Amount"
-          required
-        />
-        <input
-          type="text"
-          id="description"
-          name="description"
-          placeholder="Description"
-          required
-        />
-        <select id="category" name="category" required>
-          <option value="fuel">Fuel</option>
-          <option value="food">Food</option>
-          <option value="electricity">Electricity</option>
-          <option value="movie">Movie</option>
-        </select>
-        <button class="btn">Add Expense</button>
+    <div>
+      <header>
+        <ul>
+          <li><a href="#">✐</a></li>
+          <li><a href="#" class="active">DAILY</a></li>
+          <li><a href="#">MONTHLY</a></li>
+          <li><a href="#">YEARLY</a></li>
+        </ul>
+      </header>
+
+      <div class="month-navigation">
+        <span class="arrow left" onclick="previousMonth()">&#60;</span>
+        <span id="currentMonth"></span>
+        <span class="arrow right" onclick="nextMonth()">&#62;</span>
+      </div>
+
+      <button class="showFormBtn" id="showForm">+</button>
+
+      <form class="expense-form">
+        <div class="input-group">
+          <input
+            type="number"
+            id="expense"
+            name="expense"
+            placeholder="Amount"
+            required
+          />
+          <input
+            type="text"
+            id="description"
+            name="description"
+            placeholder="Describe here"
+            required
+          />
+        </div>
+        <div class="input-group">
+          <select id="category" name="category" required>
+            <option value="" disabled selected>Select related Category</option>
+            <option value="fuel">Fuel</option>
+            <option value="food">Food</option>
+            <option value="electricity">Electricity</option>
+            <option value="movie">Movie</option>
+          </select>
+          <button class="btn">✔</button>
+        </div>
       </form>
+      <ul id="output"></ul>
     </div>
-    <ul id="output"></ul>
-    <script src="expenseForm.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"></script>
   </body>
+  <script src="expenseForm.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"></script>
 </html>
